@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candy Crush</title>
+  <style>
+    body {
+  background: #f0f0f0;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+#board {
+  width: 450px;
+  height: 450px;
+  background: #fff;
+  border: 5px solid #ddd;
+  border-radius: 10px;
+  margin: 40px auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.candy {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+
+.candy:hover {
+  transform: scale(1.1);
+}
+  </style>
+</head>
+<body>
+  <h1>Score: <span id="score">0</span></h1>
+  <div id="board">
+    <!-- candies will be generated here -->
+  </div>
+  <script>
+    let candies = ["blue", "orange", "green", "yellow", "red", "purple"];
+let board = [];
+let score = 0;
+
+function generateCandy() {
+  let candy = document.createElement("div");
+  candy.className = "candy";
+  candy.style.backgroundImage = `url("candy-${candies[Math.floor(Math.random() * candies.length)]}.png")`;
+  return candy;
+}
+
+function createBoard() {
+  for (let i = 0; i < 9; i++) {
+    let row = [];
+    for (let j = 0; j < 9; j++) {
+      let candy = generateCandy();
+      row.push(candy);
+      document.getElementById("board").appendChild(candy);
+    }
+    board.push(row);
+  }
+}
+
+function crushCandy(candy) {
+  // crush candy logic here
+  score += 10;
+  document.getElementById("score").innerText = score;
+}
+
+function swapCandies(candy1, candy2) {
+  // swap candies logic here
+}
+
+createBoard();
+
+document.addEventListener("DOMContentLoaded", function() {
+  let candies = document.querySelectorAll(".candy");
+  candies.forEach(function(candy) {
+    candy.addEventListener("click", function() {
+      crushCandy(candy);
+    });
+  });
+});
+  </script>
+</body>
+</html>
